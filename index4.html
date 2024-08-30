@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+     <div id="message"></div>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Login</h2>
+    <form action="/login" method="POST" id="loginForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+            
+        <button type="submit">Login</button>
+    </form>
+    <div class="error-message" id="errorMessage"></div>
+</div>
+<button onclick="window.location.href = '/signup';">Go to Signup Page</button>
+ <button id="profileButton" style="display: none;" onclick="window.location.href = '/profile';">Go to Profile Page</button>
+ <button id="chatButton" style="display: none;" onclick="window.location.href = '/chat';">gemini</button>
+  <button id="stockButton" style="display: none;" onclick="window.location.href = '/stock';">stock</button>
+
+    <script>
+        document.getElementById('loginForm').onsubmit = async function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
+            });
+
+            const result = await response.json();
+           if (response.status === 200) {
+                // Display success message
+                document.getElementById('message').textContent = 'Login was successful!';
+                
+                // Set button URL with user ID
+                const profileButton = document.getElementById('profileButton');
+                profileButton.style.display = 'inline'; // Show the button
+                profileButton.onclick = function() {
+                    // Delay before redirecting
+                    setTimeout(() => {
+                        window.location.href = `/profile/${result.user_id}`;
+                    }, 2000); // Delay in milliseconds (2000 ms = 2 seconds)
+                };
+
+                    const chatButton = document.getElementById('chatButton');
+                chatButton.style.display = 'inline'; // Show the button
+                chatButton.onclick = function() {
+                    // Delay before redirecting
+                    setTimeout(() => {
+                        window.location.href = `/chat`;
+                    }, 2000); // Delay in milliseconds (2000 ms = 2 seconds)
+                };
+
+                const stockButton = document.getElementById('stockButton');
+                stockButton.style.display = 'inline'; // Show the button
+                stockButton.onclick = function() {
+                    // Delay before redirecting
+                    setTimeout(() => {
+                        window.location.href = `/stock`;
+                    }, 2000); // Delay in milliseconds (2000 ms = 2 seconds)
+                };
+
+
+
+
+            } else {
+                // Display error message if login fails
+                document.getElementById('errorMessage').textContent = result.message;
+            }
+        };
+
+</script>
+
+</body>
+</html>

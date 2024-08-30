@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stt1css.css') }}">
+    <title>MoneyZZ</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        #chat-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        #history {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .user-message {
+            background-color: #f0f0f0;
+            padding: 5px;
+            margin-bottom: 5px;
+        }
+        .model-message {
+            background-color: #e1ffe1;
+            padding: 5px;
+            margin-bottom: 5px;
+        }
+        #userinput {
+            width: calc(100% - 70px);
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #send-button {
+            width: 60px;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="background-color:  rgba(128, 128, 128, 0.7); color: white; padding: 10px 10px 5px 10px; text-align: center;width: 100%">MoneyZZ</h1>
+    <h2 style="background-color:  rgba(128, 128, 128, 0.7); color: white; padding: 10px 10px 5px 10px; text-align: center;width: 100%">Money made Easy</h2>
+    
+    <div id="chat-container">
+        <div id="history">
+            {% if user_input %}
+            <div class="user-message">{{ user_input }}</div>
+            {% endif %}
+            {% if response %}
+            <div class="model-message">{{ response }}</div>
+            {% endif %}
+        </div>
+        <form action="/chat" method="POST">
+            <div class="input-box">
+<textarea id="userinput" name="user_input" placeholder="Your speech text will appear here...">{{ user_input }}</textarea>
+            </div>
+            <button type="button" id="startButton">Start Speaking</button>
+            <button id="send-button" type="submit">Send</button>
+            
+        </form>
+    </div>
+
+    <script src="{{ url_for('static', filename='stt1js.js') }}"></script>
+</body>
+</html>

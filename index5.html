@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile</title>
+<script>
+        function updateProfile() {
+            const user_id = document.getElementById('user_id').value;  // Fetch user_id
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const age = document.getElementById('age').value;
+ 
+            fetch(`/profile/${user_id}`, {  // Use user_id in the URL
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password, age }),
+            })
+            .then(async response => {
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(errorText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    alert('Profile updated successfully!');
+                } else {
+                    alert(data.error || 'Failed to update profile.');
+                }
+            })
+            .catch(error => {
+                alert('Error updating profile: ' + error.message);
+            });
+        }
+</script>
+</head>
+<body>
+<h1>Profile Page</h1>
+<form onsubmit="event.preventDefault(); updateProfile();">
+<!-- Hidden field to store the user_id -->
+<input type="hidden" id="user_id" value="{{ user_id }}">
+<!-- Fields for updating user information -->
+<input type="text" id="username" placeholder="Username" value="{{ user['username'] }}" readonly required>
+<input type="password" id="password" placeholder="Password" value="{{ user['password'] }}" required>
+<input type="number" id="age" placeholder="Age" value="{{ user['age'] }}" required>
+<button type="submit">Save</button>
+</form>
+<button onclick="window.location.href = '/';">Go to Login Page</button>
+</body>
+</html>
+
+has context menu

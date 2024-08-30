@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech to Text with Flask</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stt1css.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Speech to Text Demo</h1>
+        <form method="POST">
+            <div class="input-box">
+                <textarea id="userinput" name="user_input" placeholder="Your speech text will appear here...">{{ user_input }}</textarea>
+            </div>
+            <button type="button" id="startButton">Start Speaking</button>
+            <button type="submit">Submit Text</button>
+        </form>
+
+        {% if user_input %}
+        <div class="result">
+            <h3>Submitted Text:</h3>
+            <p>{{ user_input }}</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="{{ url_for('static', filename='stt1js.js') }}"></script>
+</body>
+
+</html>
