@@ -3,3 +3,5 @@ As a part of my final year major project, I have been working on a given gap in 
 
 
 • This project is stil ongoing and will be finsihed by the end of my semester.
+
+•The firebase - json file will not be uploaded as it conatains senstive info.
