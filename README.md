@@ -8,3 +8,5 @@ As a part of my final year major project, I have been working on a given gap in 
 
 
 "gemini2" "gemini3" "stt1" "yf1" "colab2" "colab3" - these files are not a part of the project, they are the smaller units for testing that i made prior to integrating it, it can be used for other projects too 
+
+I shall add the updated code soon; (27/09/24)
